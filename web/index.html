@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Elite | Hospital Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">✚</div>
+            <div>
+                <h2>MediCare</h2>
+                <small>ELITE HOSPITAL</small>
+            </div>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+        <a href="#dashboard" class="nav-link active">▦ Dashboard</a>
+        <a href="#patients" class="nav-link">♙ Patients</a>
+        <a href="#doctors" class="nav-link">⚕ Doctors</a>
+        <a href="#appointments" class="nav-link">▣ Appointments</a>
+
+        <div class="sidebar-bottom">
+            <div class="admin-avatar">A</div>
+            <div>
+                <strong>Administrator</strong>
+                <small>System Manager</small>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Hospital Dashboard</h1>
+                <p>Welcome back! Here's your hospital overview.</p>
+            </div>
+            <div class="top-tag">● System Online</div>
+        </header>
+
+        <section id="dashboard" class="page-section">
+            <div class="welcome-card">
+                <div>
+                    <span class="eyebrow">MEDICARE ELITE</span>
+                    <h2>Healthcare management, made simple.</h2>
+                    <p>Manage patients, find specialists and schedule appointments.</p>
+                </div>
+                <div class="welcome-symbol">✚</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Total Patients</span>
+                    <h2 id="patientCount">0</h2>
+                    <small>Registered patients</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Available Doctors</span>
+                    <h2 id="doctorCount">0</h2>
+                    <small>Medical specialists</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Appointments</span>
+                    <h2 id="appointmentCount">0</h2>
+                    <small>All appointment records</small>
+                </div>
+
+                <div class="stat-card">
+                    <span>Active Appointments</span>
+                    <h2 id="activeCount">0</h2>
+                    <small>Currently booked</small>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Start managing your hospital</p>
+                </div>
+            </div>
+
+            <div class="quick-grid">
+                <a href="#patients" class="quick-card">
+                    <span class="quick-icon">♙</span>
+                    <h3>Register Patient</h3>
+                    <p>Add a new patient record</p>
+                </a>
+
+                <a href="#doctors" class="quick-card">
+                    <span class="quick-icon">⚕</span>
+                    <h3>Find a Doctor</h3>
+                    <p>Search medical specialists</p>
+                </a>
+
+                <a href="#appointments" class="quick-card">
+                    <span class="quick-icon">▣</span>
+                    <h3>Book Appointment</h3>
+                    <p>Schedule a consultation</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="patients" class="page-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Patient Management</h2>
+                    <p>Register and view patient details</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Register New Patient</h3>
+
+                <form id="patientForm" class="form-grid">
+                    <div class="form-group">
+                        <label>Patient Name</label>
+                        <input type="text" name="name" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="age" min="1" max="120" placeholder="Enter age" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" required>
+                            <option value="">Select gender</option>
+                            <option>Female</option>
+                            <option>Male</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" placeholder="Enter phone number" required>
+                    </div>
+
+                    <button type="submit" class="primary-btn">+ Register Patient</button>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <h3>Registered Patients</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="doctors" class="page-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Doctor Directory</h2>
+                    <p>Find the right specialist for your patients</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="search-row">
+                    <input type="text" id="doctorSearch"
+                           placeholder="Search by doctor or department...">
+                    <button class="primary-btn" onclick="loadDoctors()">Search</button>
+                    <button class="secondary-btn" onclick="resetDoctorSearch()">Show All</button>
+                </div>
+
+                <div id="doctorGrid" class="doctor-grid"></div>
+            </div>
+        </section>
+
+        <section id="appointments" class="page-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Appointment Management</h2>
+                    <p>Book and manage patient consultations</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Book New Appointment</h3>
+
+                <form id="appointmentForm" class="form-grid">
+                    <div class="form-group">
+                        <label>Select Patient</label>
+                        <select id="patientSelect" name="patientId" required>
+                            <option value="">Select patient</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Doctor</label>
+                        <select id="doctorSelect" name="doctorId" required>
+                            <option value="">Select doctor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Appointment Date</label>
+                        <input type="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Appointment Time</label>
+                        <input type="time" name="time" required>
+                    </div>
+
+                    <button type="submit" class="primary-btn">Book Appointment</button>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <h3>Appointment Records</h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            © 2026 MediCare Elite. Hospital Management System.
+        </footer>
+
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
